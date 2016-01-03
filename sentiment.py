@@ -65,6 +65,7 @@ def evaluate_features(feature_select):
     print 'neg precision:', precision(referenceSets['neg'], testSets['neg'])
     print 'neg recall:', recall(referenceSets['neg'], testSets['neg'])
     print 'neg f1-score:', f_measure(referenceSets['neg'], testSets['neg'])
+    classifier.show_most_informative_features(10)
     print '================================================='
     
 
