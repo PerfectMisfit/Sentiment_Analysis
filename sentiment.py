@@ -4,7 +4,9 @@ Created on Fri Jan 01 20:54:08 2016
 
 @author: Pratik
 """
-
+from math import log10
+import numpy as np
+import matplotlib.pyplot as plt
 import re, math, collections, itertools, os
 import nltk, nltk.classify.util
 from nltk.metrics.scores import precision, recall, f_measure
@@ -140,3 +142,15 @@ for i in numbers_to_test:
     print 'evaluating best %d word features' % (i)
     best_words = find_best_words(word_scores, i)
     evaluate_features(best_word_features)
+    
+features = [10, 50, 100, 250, 500, 750, 1000, 2500, 5000, 7500, 10000, 12500, 15000, 20000, 25000]
+logFeatures = [log10(i) for i in features]
+
+accuracy = [0.5746436609152288, 0.6406601650412603, 0.6822955738934734, 0.7291822955738935, 0.7659414853713429, 0.7861965491372843, 0.7963240810202551, 0.8304576144036009, 0.8510877719429858, 0.8465866466616654, 0.8465866466616654, 0.8465866466616654, 0.8469617404351087, 0.773068267067, 0.773068267067]
+
+m,b = np.polyfit(logFeatures, accuracy, 1)
+regression = [m*x+b for x in logFeatures]
+
+plt.plot(logFeatures, accuracy)
+plt.plot(logFeatures, regression)
+plt.show()
